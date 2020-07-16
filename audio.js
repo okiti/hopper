@@ -6,20 +6,20 @@ class music {
 			this.playList = [];
 			this.source;
 			this.started = false;
-			this.playButton = document.querySelector('#play');
+			this.playButton = document.getElementById('#play');
 		} catch (error) {
 			alert('Web Audio Api is not supported in this browser');
 		}
 	}
-	getAudio(url) {
-		window.fetch(url)
+	async getAudio(url) {
+		await window.fetch(url)
 			.then(response => response.arrayBuffer())
 			.then(arrayBuffer => this.context.decodeAudioData(arrayBuffer))
 			.then(audioBuffer => {
 				return this.playList.push(audioBuffer);
 			});
 	}
-	playAudio(playList) {
+	playAudio() {
 		this.source = this.context.createBufferSource();
 		this.source.buffer = this.playList[0];
 		this.source.connect(this.context.destination);
@@ -29,11 +29,12 @@ class music {
 	stopAudio() {
 		this.source.stop(0);
 	}
-	play(url) {
-		const audio = this.getAudio(url);
+	async play(url) {
+		await this.getAudio(url);
+		console.log(this.playList);
 		document.addEventListener('click', () => {
 			if (!this.started) {
-				this.playAudio(audio);
+				this.playAudio();
 				this.started = true;
 			} else {
 				if (this.context.state === 'running') {
