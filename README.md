@@ -1,2 +1,2 @@
 # hopper
-A matrix tool
+An audio library based on JavsScript Web Audio API.
