@@ -46,6 +46,9 @@ class music {
 					})
 				}
 			}
+			this.source.onended = () => {
+				this.started = false;
+			}
 		});
 	}
 }
