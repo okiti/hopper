@@ -30,10 +30,10 @@ class music {
 		this.source.stop(0);
 	}
 	play(url) {
-		const mp3 = this.getAudio(url);
+		const audio = this.getAudio(url);
 		document.addEventListener('click', () => {
 			if (!this.started) {
-				this.playAudio(mp3);
+				this.playAudio(audio);
 				this.started = true;
 			} else {
 				if (this.context.state === 'running') {
@@ -47,6 +47,7 @@ class music {
 				}
 			}
 			this.source.onended = () => {
+				this.stopAudio();
 				this.started = false;
 			}
 		});
